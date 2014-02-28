@@ -4,6 +4,8 @@ package uk.ac.reading.sis05kol.mooc;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.util.Log;
 
 public class TheGame extends GameThread{
 
@@ -53,7 +55,18 @@ public class TheGame extends GameThread{
 		//draw the image of the ball using the X and Y of the ball
 		//drawBitmap uses top left corner as reference, we use middle of picture
 		//null means that we will use the image without any extra features (called Paint)
+		int maxX,maxY,BallRX,BallRY;
+		maxX=canvas.getWidth();
+		maxY=canvas.getHeight();
+		BallRX=mBall.getWidth() / 2;
+		BallRY=mBall.getHeight() / 2;
+		if (mBallX< BallRX|| mBallX>(maxX- BallRX))
+			mBallSpeedX=-mBallSpeedX;
+		if (mBallY<BallRY || mBallY>(maxY- BallRY))
+			mBallSpeedY=-mBallSpeedY;
 		canvas.drawBitmap(mBall, mBallX - mBall.getWidth() / 2, mBallY - mBall.getHeight() / 2, null);
+		Paint paint=new Paint();
+		canvas.drawText("X="+Float.toString(mBallX)+", Y="+Float.toString(mBallY), mBallX, mBallY, paint);
 	}
 	
 	//This is run whenever the phone is touched by the user
